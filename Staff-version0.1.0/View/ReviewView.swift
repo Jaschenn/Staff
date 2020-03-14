@@ -15,9 +15,8 @@ struct ReviewView: View {
     @State var showCompletedTasks = false
     @FetchRequest(entity: Task.entity(), sortDescriptors: []) var tasksRecentlycompleted: FetchedResults<Task>
     
-    var today: Int{
-        tasksRecentlycompleted.count
-    }
+    var today: Int{tasksRecentlycompleted.count}
+    
     var body: some View {
             NavigationView{
                 
@@ -26,11 +25,11 @@ struct ReviewView: View {
                         // 1 完成情况图
                         
                             //七天的数据
-                            MultiLineChartView(data: [([8,32,11,23,40,28], GradientColors.green), ([90,99,78,111,70,60,77], GradientColors.purple), ([34,56,72,38,43,100,50], GradientColors.orngPink)], title: "最近完成情况")
+                        LineView(data: [8,23,54,32,12,37,7,23,43], title: "最近完成情况", legend: "Full screen") .padding()// legend is optional, use optional .padding()
                         
                     }
                     // 2 查看情况图
-                }
+                }.navigationBarTitle("回顾")
         }
     }
 }

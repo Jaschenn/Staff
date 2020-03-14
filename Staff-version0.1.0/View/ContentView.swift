@@ -22,20 +22,16 @@ let tabBarItems: [BottomBarItem] = [
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var context
-    @State private var selectionTab = 0
     @State var isPopAdd = false
     @State var isSlideCardActive: Bool = false
     @State private var selectedIndex: Int = 0 //新版tabBar
     
-    
     var body: some View {
-        
-        ZStack{
-            // MARK: - Task View
-            TabView(selection: $selectionTab){
+        VStack{
+            if selectedIndex == 0 {
                 NavigationView{
                     TaskView(isSlideCardActive: $isSlideCardActive)
-                        .navigationBarTitle("Task")
+                        .navigationBarTitle("列表")
                         .navigationBarItems(trailing: Button(action: {
                             self.isPopAdd.toggle()
                         }){
@@ -43,50 +39,30 @@ struct ContentView: View {
                         }.sheet(isPresented: self.$isPopAdd){
                             AddTaskView(isPopAdd: self.$isPopAdd).environment(\.managedObjectContext, self.context)
                         })
-                }.tabItem{
-                    VStack{
-                        Image(systemName: "checkmark.square")
-                        Text("列表")
-                    }}.tag(0)
-                
-                OrganizeView().tabItem {
-                    VStack{
-                        Image(systemName: "rectangle.3.offgrid")
-                        Text("整理")
-                    }
-                }.tag(3)
-                
-                // MARK: - 物料
-                NavigationView{
-                    MaterialView()
-                        .navigationBarTitle("Materials")
                 }
-                .tabItem {
-                    VStack {
-                        Image(systemName: "rectangle.stack.person.crop")
-                        Text("物料")
-                    }
-                }
-                .tag(1)
-                ReviewView()
-                    .tabItem{
-                        VStack {
-                            Image(systemName: "tray.full.fill")
-                            Text("回顾")
-                        }
-                }.tag(2)
-                
             }
             
-            if isSlideCardActive == true{
-                SlideOverCard {
-                    Text("hello")
+            if selectedIndex == 1 {
+                OrganizeView()
+            }
+            
+            if selectedIndex == 2 {
+                NavigationView{
+                    MaterialView()
+                        .navigationBarTitle("物料")
                 }
+            }
+            
+            if selectedIndex == 3 {
+                ReviewView()
             }
             
             BottomBar(selectedIndex: $selectedIndex, items: tabBarItems)
         }
-    }
+            
+            
+        }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

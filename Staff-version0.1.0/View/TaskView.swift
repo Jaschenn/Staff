@@ -11,11 +11,12 @@ import CoreData
 import WaterfallGrid
 import SlideOverCard
 import SwiftDate
+import PartialSheet
 
 struct TaskView: View {
     @Environment(\.managedObjectContext) var context
     @State private var taskName: String = ""
-    @State private var selectedFilter = 0
+    @State private var selectedFilter = 1
     @Binding var isSlideCardActive: Bool // 控制父控件中的弹出卡片
     // ASAPTasks - 随时任务，尽可能快的完成没有指定时间✅
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.date, ascending: false)], predicate: NSPredicate(format: "isComplete == %@ AND date == %@", NSNumber(value: false), NSNull())) var ASAPTasks: FetchedResults<Task>
@@ -59,11 +60,8 @@ struct TaskView: View {
                                     TaskCell(task: task,isSlideCardActive: self.$isSlideCardActive).environment(\.managedObjectContext, self.context)
                                     
                                 }
-                            }.onAppear {//消除List的分割线
-                                UITableView.appearance().separatorStyle = .none
-                            }.onDisappear {
-                                UITableView.appearance().separatorStyle = .singleLine
-                            }
+                            }.animation(.default)
+                                
                         }
                     }
                 }
@@ -133,7 +131,9 @@ struct TaskCell: View {
                 }
             }
             
-        }.background(Color.init("TaskCell_background")).clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+        .background(Color.init("TaskCell_background")).clipShape(RoundedRectangle(cornerRadius: 10))
+            .shadow(radius: 4)
     }
 }
 

@@ -21,6 +21,7 @@
         <attribute name="isComplete" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="review" optional="YES" attributeType="String"/>
+        <attribute name="taskType" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="relateToPeople" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="People" inverseName="relatedTask" inverseEntity="People"/>
         <relationship name="withTag" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tag" inverseName="byTask" inverseEntity="Tag"/>
@@ -28,6 +29,6 @@
     <elements>
         <element name="People" positionX="-54" positionY="54" width="128" height="133"/>
         <element name="Tag" positionX="-63" positionY="36" width="128" height="103"/>
-        <element name="Task" positionX="-63" positionY="-18" width="128" height="178"/>
+        <element name="Task" positionX="-63" positionY="-18" width="128" height="193"/>
     </elements>
 </model>
