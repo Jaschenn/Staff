@@ -26,13 +26,6 @@ extension Task {
     @NSManaged public var title: String?
     @NSManaged public var withTag: NSSet?
     @NSManaged public var taskType: String?
-    // 任务的种类，-1位灵感，0位收件箱、1为已安排列表
-    var tags: [Tag]{
-        guard let withTag = withTag,
-            let tags = Array(withTag) as? [Tag]
-            else {return []}
-        return tags
-    }
     
     
 }

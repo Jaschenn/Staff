@@ -13,6 +13,7 @@ import SlideOverCard
 import SwiftDate
 import PartialSheet
 
+
 struct TaskView: View {
     @Environment(\.managedObjectContext) var context
     @State private var taskName: String = ""
@@ -26,11 +27,12 @@ struct TaskView: View {
     
     //某天的任务 - 不是今天、但是指定时间了✅
     @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.date, ascending: false)], predicate: NSPredicate(format: "isComplete == %@ AND date >= %@", NSNumber(value: false), Date().dateAt(.tomorrow).dateAt(.startOfDay) as CVarArg)) var somedayTasks: FetchedResults<Task>
-    
     // 授权的任务 Todo
-    @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.date, ascending: false)], predicate: NSPredicate(format: "isComplete == %@", NSNumber(value: false), Data() as CVarArg)) var permittedTasks: FetchedResults<Task>
-    
-    
+    @FetchRequest(
+        entity: Task.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Task.date, ascending: false)],
+        predicate: NSPredicate(format: "(isComplete == %@) AND isAllocated == %@", NSNumber(value: false), NSNumber(true)))
+    var permittedTasks: FetchedResults<Task>
     /*
      四个选项分别对应的情况为：
      今天：筛选日期为今天的Task 展示出来
@@ -40,7 +42,7 @@ struct TaskView: View {
      */
     
     let pickerOptions = ["随时","今天","将来","等待"]
-    @State var showpartialSheet = false
+    @State var editMode = false
     
     var body: some View {
             
@@ -57,7 +59,10 @@ struct TaskView: View {
                             List{// 根据条件展示内容
                                 ForEach(getCurrentTasksData()){
                                     task in
-                                    TaskCell(task: task,isSlideCardActive: self.$isSlideCardActive).environment(\.managedObjectContext, self.context)
+                                    TaskCell(task: task,isSlideCardActive: self.$isSlideCardActive, editMode: self.$editMode).environment(\.managedObjectContext, self.context)
+                                        .sheet(isPresented: self.$editMode) {
+                                            AddTaskView(isPopAdd: self.$editMode, isEditMode: true, needTobeEditedTask: task ).environment(\.managedObjectContext, self.context)
+                                    }
                                     
                                 }
                             }.animation(.default)
@@ -66,7 +71,7 @@ struct TaskView: View {
                     }
                 }
                 Spacer()
-        }
+            }
     }
     
     
@@ -85,6 +90,31 @@ struct TaskView: View {
         }
     }
     
+    func getCurrentAuthoriedTasks()-> [Task]{
+        // no used
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "People")
+        var existPeoples: [People] = []
+        do{
+            try existPeoples = context.fetch(fetchRequest) as! [People]
+        }catch{
+            print(error)
+        }
+        
+        let fetchRequest2 = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        
+        fetchRequest2.predicate = NSPredicate(format: "(isComplete == %@) AND (ALL relateToPeople IN %@)", NSNumber(0), existPeoples)
+        var results: [Task] = []
+        do{
+            results = try context.fetch(fetchRequest2) as! [Task]
+            return results
+        }catch{
+            print(error)
+        }
+        return results
+        
+    }
+    
     
 }
 //
@@ -101,8 +131,12 @@ struct TaskView: View {
 
 
 struct TaskCell: View {
+    /*
+     重按修改，点击出现详情。
+     */
     var task: Task
     @Binding var isSlideCardActive: Bool
+    @Binding var editMode: Bool
     @Environment(\.managedObjectContext) var context
     var body: some View {
         ZStack{
@@ -134,6 +168,14 @@ struct TaskCell: View {
             }
         .background(Color.init("TaskCell_background")).clipShape(RoundedRectangle(cornerRadius: 10))
             .shadow(radius: 4)
+            .contextMenu{
+                Button(action:{
+                    self.editMode.toggle()
+                }){
+                    Text("修正")
+                    Image(systemName: "pencil.and.ellipsis.rectangle")
+                }
+        }
     }
 }
 

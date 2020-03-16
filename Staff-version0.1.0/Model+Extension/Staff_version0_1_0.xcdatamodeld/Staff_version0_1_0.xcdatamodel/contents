@@ -18,6 +18,7 @@
         <attribute name="completedTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isAllocated" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isComplete" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="review" optional="YES" attributeType="String"/>
@@ -29,6 +30,6 @@
     <elements>
         <element name="People" positionX="-54" positionY="54" width="128" height="133"/>
         <element name="Tag" positionX="-63" positionY="36" width="128" height="103"/>
-        <element name="Task" positionX="-63" positionY="-18" width="128" height="193"/>
+        <element name="Task" positionX="-63" positionY="-18" width="128" height="208"/>
     </elements>
 </model>

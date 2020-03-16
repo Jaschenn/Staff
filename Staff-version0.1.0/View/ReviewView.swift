@@ -18,18 +18,39 @@ struct ReviewView: View {
     var today: Int{tasksRecentlycompleted.count}
     
     var body: some View {
-            NavigationView{
+        
+        NavigationView{
+            
+        VStack{
+            HStack(alignment: .top){
+                NavigationLink(destination: ReviewToday()){
+                    PieChartView(data: [10,20,30], title: "今日",  form: ChartForm.medium).padding()
+                }
+                Spacer()
+                VStack(alignment: .leading){
+                    Text("1348\n KAMA")
+                        .font(.largeTitle)
+                        .foregroundColor(.green)
+                        .animation(.spring())
+                        .padding()
+                    Text("中级").font(.headline).foregroundColor(.purple).padding(.horizontal)
+                }
                 
-                NavigationLink(destination: CompletedTaskView()){
-                    VStack(alignment: .leading) {
-                        // 1 完成情况图
-                        
-                            //七天的数据
-                        LineView(data: [8,23,54,32,12,37,7,23,43], title: "最近完成情况", legend: "Full screen") .padding()// legend is optional, use optional .padding()
-                        
-                    }
-                    // 2 查看情况图
-                }.navigationBarTitle("回顾")
+                
+            }
+            
+            NavigationLink(destination: CompletedTaskView()){
+                VStack(alignment: .leading) {
+                    // 1 完成情况图
+                    
+                        //七天的数据
+                    BarChartView(data: ChartData(points: [8,23,54,32,12,37,7,23,43]), title: "最近7日", form: ChartForm.large) .padding()// legend is optional, use optional .padding()
+                    
+                }
+                // 2 查看情况图
+            }
+            Spacer()
+        }.navigationBarTitle("回顾")
         }
     }
 }
@@ -42,3 +63,9 @@ struct ReviewView_Previews: PreviewProvider {
     }
 }
 
+
+struct ReviewToday: View {
+    var body: some View{
+        Text("今日回顾")
+    }
+}

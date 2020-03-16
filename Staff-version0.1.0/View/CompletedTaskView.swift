@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct CompletedTaskView: View {
-    @FetchRequest(entity: Task.entity(), sortDescriptors: [], predicate: NSPredicate(format: "isComplete == %@", NSNumber(value: true))) var completedTasks : FetchedResults<Task>
+    @FetchRequest(entity: Task.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Task.completedTime, ascending: true)], predicate: NSPredicate(format: "isComplete == %@", NSNumber(value: true))) var completedTasks : FetchedResults<Task>
     
     var body: some View {
         List{

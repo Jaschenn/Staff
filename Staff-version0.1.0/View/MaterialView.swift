@@ -26,12 +26,12 @@ struct MaterialView: View {
                     Text("Tags").tag(1)
                 }.pickerStyle(SegmentedPickerStyle())
                 List{
-                    if selectedOption == 1{
+                    if selectedOption == 1{//标签列表
                         ForEach(tags, id: \.self){
                             tag in
                             Text(tag.name ?? "").padding().background(Color.init(tag.colorName ?? "defaultColor"))
-                        }
-                    }else if selectedOption == 0{
+                        }.onDelete(perform: deleteCurrentTagWithSwipe)
+                    }else if selectedOption == 0{//人员列表
                         ForEach(peoples, id: \.self){
                             people in
                             PeopleCell(people: people).contextMenu {
@@ -60,7 +60,7 @@ struct MaterialView: View {
             }
         }
     }
-    
+    // TODO: 删除标签和删除人的时候需要十分谨慎，要考虑到已分配的关系应该如何清除？
     func deleteCurrentPeople(people: People){
         // contains bug
         // This is the same bug: https://forums.developer.apple.com/thread/124735
@@ -78,6 +78,22 @@ struct MaterialView: View {
             contex.delete(preDeletePeople)
         }
         
+        do{
+            try contex.save()
+        }catch{
+            print(error)
+        }
+        
+    }
+    func deleteCurrentTagWithSwipe(at offsets: IndexSet){
+        //删除标签之前首先删除和此标签相关联的所有的任务中的本标签
+        for offset in offsets{
+            let preDeleteTag = tags[offset]
+            for task in preDeleteTag.interrelatedTasks{
+                task.removeFromWithTag(preDeleteTag)
+            }
+            contex.delete(preDeleteTag)
+        }
         try? contex.save()
         
     }
@@ -88,12 +104,12 @@ struct MaterialView: View {
 struct PeopleCell: View {
     let people: People
     var uiImage: UIImage{
-        guard let uiImage = UIImage(data: people.bio!) else {
-            return UIImage(systemName: "person.circle")!
+        if let bioData = people.bio{
+          return UIImage(data: bioData)!
+        }else{
+             return UIImage(systemName: "person.circle")!
         }
-        return uiImage
     }
-    
     var body: some View {
         HStack{
             Image(uiImage: uiImage).resizable().clipShape(Circle()).frame(width: 50, height: 50).scaledToFit()

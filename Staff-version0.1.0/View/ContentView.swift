@@ -36,7 +36,8 @@ struct ContentView: View {
                             self.isPopAdd.toggle()
                         }){
                             Image(systemName: "plus.circle").imageScale(.large)
-                        }.sheet(isPresented: self.$isPopAdd){
+                        }
+                        .sheet(isPresented: self.$isPopAdd){
                             AddTaskView(isPopAdd: self.$isPopAdd).environment(\.managedObjectContext, self.context)
                         })
                 }
