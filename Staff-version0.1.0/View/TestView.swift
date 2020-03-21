@@ -9,13 +9,8 @@
 import SwiftUI
 
 struct TestView: View {
-    @State var show = false
     var body: some View {
-        Button(action: {self.show.toggle()}){
-            Text("click to show popover")
-        }.popover(isPresented: $show,arrowEdge: .top) {
-            Text("H")
-        }
+        Text("hello")
 }
 }
 

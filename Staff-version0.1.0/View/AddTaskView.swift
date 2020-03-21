@@ -13,11 +13,11 @@ import WaterfallGrid
 struct AddTaskView: View {
     @Environment(\.managedObjectContext) var contex
     @Binding var isPopAdd: Bool //binding 使得subview可以读写parent viwe中的var
-    var isEditMode: Bool? = false // 是否是编辑模式？若为编辑模式，那么需要预加载进行编辑的任务的信息
+    @Binding var isEditMode: Bool// 是否是编辑模式？若为编辑模式，那么需要预加载进行编辑的任务的信息
     @State var title = ""
     @State var notes = ""
     @State var date: Date = Date()
-    var needTobeEditedTask: Task?
+    @State var needTobeEditedTask: Task?
     @FetchRequest(entity: Tag.entity(), sortDescriptors: []) var tags: FetchedResults<Tag>
     @FetchRequest(entity: People.entity(), sortDescriptors: []) var peoples: FetchedResults<People>
     @State var checkedTag: [Tag] = []
@@ -47,10 +47,11 @@ struct AddTaskView: View {
                     }.scrollOptions(direction: .horizontal, showsIndicators: false)
                     
                 }
+    
                 //MARK: - 标签选择器
-                Section(header: Text("标签")){
+                Group{
                     VStack{
-                        Image(systemName: "tag")
+                        Text("选择标签")
                         WaterfallGrid(tags,id: \.self){
                             tag in
                             Button(action:{self.checkedTag.append(tag)
@@ -70,12 +71,12 @@ struct AddTaskView: View {
                         ).scrollOptions(direction: .horizontal, showsIndicators: false)
                         
                     }
-                }
+                }.frame(height: 150)
                 // MARK: - 指派给其他人
-                Section(header: Text("分配给")){
-
+                Group{
+                    
                         VStack{
-                            Image(systemName: "person")
+                            Text("分配给")
                             WaterfallGrid(peoples,id: \.self){
                                 people in
                                 ZStack{
@@ -104,11 +105,9 @@ struct AddTaskView: View {
                             
                         }
                         
-                }
+                }.frame(height: 120)
                 
-                Spacer()
-                
-            }.navigationBarTitle(isEditMode ?? false ? "修正" : "今日新任务", displayMode: .inline)
+            }.navigationBarTitle(isEditMode ? "修正" : "今日新任务", displayMode: .inline)
                 .navigationBarItems(trailing:   Button(action: {
                     if self.isEditMode == false{
                         self.saveNewTask()
@@ -116,17 +115,18 @@ struct AddTaskView: View {
                     }else{
                         //更新任务
                         self.updateTask()
+                        self.isEditMode = false
                         self.isPopAdd = false
                     }
                     
                 }){
-                    Text(isEditMode ?? false ? "更新" : "存入").foregroundColor(.primary)
+                    Text(isEditMode ? "更新" : "存入").foregroundColor(.primary)
                         .padding()
                     
                 })
         }.onAppear {
             //修改时候需要先得到之前的分配人和标签状态
-            if self.isEditMode ?? false {
+            if self.isEditMode{
                 self.checkedPeople = self.needTobeEditedTask?.peoples ?? []
                 self.checkedTag = self.needTobeEditedTask?.tags ?? []
                 self.title = self.needTobeEditedTask?.title ?? ""

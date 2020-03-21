@@ -15,7 +15,10 @@ struct CompletedTaskView: View {
         List{
             ForEach(completedTasks,id: \.self){
                 task in
-                TaskReviewCell(task: task)
+                VStack{
+                    TimeLineCard(task: task)
+                }
+                
             }
         }
     }

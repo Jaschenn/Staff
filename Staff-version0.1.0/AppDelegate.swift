@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         //输出模拟器的地址
         print(FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask))
+        //设置TableView的背景色，也就是swiftUI中的List的背景色
+        UITableView.appearance().backgroundColor = UIColor(named: "app_background")
         return true
     }
 
