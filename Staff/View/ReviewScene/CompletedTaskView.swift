@@ -22,7 +22,6 @@ struct CompletedTaskView: View {
                     VStack{
                         TimeLineCard(task: task)
                     }
-                    
                 }.listRowBackground(Color("app_background"))
             }
         }

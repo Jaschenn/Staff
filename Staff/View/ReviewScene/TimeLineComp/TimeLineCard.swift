@@ -17,6 +17,7 @@ struct TimeLineCard: View {
     var body: some View {
         ZStack(alignment: .topTrailing){
             ZStack{
+                Color("app_background")
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.orange)
                     .frame(height: 120)

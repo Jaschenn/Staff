@@ -21,14 +21,13 @@ struct TodayTimeLine: View {
     
     var body: some View {
         ZStack{
-            Color("app_background").edgesIgnoringSafeArea(.all)
             VStack{
                 List{
                     ForEach(todayCompletedTasks){
                         task in
                         TimeLineCard(task: task)
-                    }
-                }.listRowBackground(Color("app_background"))
+                    }.listRowBackground(Color("app_background"))
+                }
             }
         }
     }
