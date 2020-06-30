@@ -22,49 +22,48 @@ struct ReviewView: View {
     var body: some View {
         
         NavigationView{
-        ZStack{
-            Color("app_background")
-                .edgesIgnoringSafeArea(.all)
-            VStack{
-                VStack {
-                    HStack{
-                        //左侧今日视图
-                        VStack {
-                            TodayCompleteTaskChartView()
-                                .padding(.leading)
-                            Spacer()
-                        }.sheet(isPresented: $showSettingView) {
-                                
-                                     SettingView()
-                        
-                            }
-                        
-                        Spacer(minLength: 8)//撑开左右部分
-                       //右侧
-                        RightGroupTextView(showTodayNotes: $showTodayNotes)
-                            .sheet(isPresented: $showTodayNotes) {
-                                TodayNotes()
-                       }
-                    }
-                }
+            ZStack{
+                Color("app_background")
+                    .edgesIgnoringSafeArea(.all)
                 VStack{
-                    RecentCompletedTaskChartView()
+                    VStack {
+                        HStack{
+                            //左侧今日视图
+                            VStack {
+                                TodayCompleteTaskChartView()
+                                    .padding(.leading)
+                                Spacer()
+                            }.sheet(isPresented: $showSettingView) {
+                                
+                                SettingView()
+                                
+                            }
+                            
+                            Spacer(minLength: 8)//撑开左右部分
+                            //右侧
+                            RightGroupTextView(showTodayNotes: $showTodayNotes)
+                                .sheet(isPresented: $showTodayNotes) {
+                                    TodayNotes()
+                            }
+                        }
+                    }
+                    VStack{
+                        RecentCompletedTaskChartView()
+                        Spacer()
+                    }
                     Spacer()
                 }
-               Spacer()
-            }
-            .navigationBarTitle("回顾")
-            .navigationBarItems(trailing:
-                Button(action:{
-                    self.showSettingView.toggle()
-                }){
-                    Image(systemName: "person.circle")
-                        .resizable()
-                        .frame(width: 40, height: 40)
+                .navigationBarTitle("回顾")
+                .navigationBarItems(trailing:
+                    Button(action:{
+                        self.showSettingView.toggle()
+                    }){
+                        Image(systemName: "person.circle")
+                            .resizable()
+                            .frame(width: 40, height: 40)
                 })
             }
         }
-        
     }
 }
 
@@ -142,14 +141,14 @@ struct RecentCompletedTaskChartView: View {
         ZStack{
             if getSum([last0.count,last1.count,last2.count,last3.count,last4.count,last5.count,last6.count]) != 0{
                 NavigationLink(destination: CompletedTaskView()){
-                BarChartView(
-                    data: ChartData(points: [Float(last6.count), Float(last5.count), Float(last4.count), Float(last3.count), Float(last2.count), Float(last1.count) , Float(last0.count)]),
-                    title: "最近7日",
-                    style: Styles.barChartStyleOrangeDark,
-                    form: ChartForm.large,
-                    dropShadow: false
-                ).padding()
-            }
+                    BarChartView(
+                        data: ChartData(points: [Float(last6.count), Float(last5.count), Float(last4.count), Float(last3.count), Float(last2.count), Float(last1.count) , Float(last0.count)]),
+                        title: "最近7日",
+                        style: Styles.barChartStyleOrangeDark,
+                        form: ChartForm.large,
+                        dropShadow: false
+                    ).padding()
+                }
             }else{
                 ZStack{
                     RoundedRectangle(cornerRadius: 25).fill(Color.green)
@@ -176,7 +175,7 @@ struct TodayCompleteTaskChartView: View {
                                          Date().dateAt(.startOfDay) as CVarArg,
                                          Date().dateAt(.endOfDay) as CVarArg))
     var todayCompletedTasks: FetchedResults<Task>
-
+    
     @FetchRequest(entity: Task.entity(),
                   sortDescriptors: [],
                   predicate: NSPredicate(format: "isComplete == %@ AND date >= %@ AND date <= %@",
@@ -237,8 +236,8 @@ struct RightGroupTextView: View {
             
             ZStack{
                 RoundedRectangle(cornerRadius: 20)
-                .fill(Color.white)
-                .frame(height: 100)
+                    .fill(Color.white)
+                    .frame(height: 100)
                 Button(action:{self.showTodayNotes.toggle()
                     print(self.showTodayNotes)
                 }){
@@ -250,6 +249,6 @@ struct RightGroupTextView: View {
             
             Spacer()
         }.padding(.trailing)
-            
+        
     }
 }

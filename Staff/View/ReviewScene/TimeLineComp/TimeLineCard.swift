@@ -10,18 +10,6 @@ import SwiftUI
 import PartialSheet
 import SwiftDate
 
-struct TimeLineView: View {
-    var body: some View{
-        Text("hello")
-    }
-}
-
-struct TimeLineView_Previews: PreviewProvider {
-    static var previews: some View {
-        TimeLineView()
-    }
-}
-
 struct TimeLineCard: View {
     let task: Task
     @State var isActive: Bool = false

@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-
+// 所有的已经完成的任务
 struct CompletedTaskView: View {
     @FetchRequest(entity: Task.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \Task.completedTime, ascending: true)],
@@ -34,17 +34,3 @@ struct CompletedTaskView_Previews: PreviewProvider {
         CompletedTaskView()
     }
 }
-
-struct TaskReviewCell: View {
-    let task: Task
-    var body: some View{
-        VStack(alignment: .leading){
-            Text(task.title ?? "").font(.headline)
-            Text(task.notes ?? "").font(.subheadline)
-            Text(task.date?.description ?? "")
-            Text(task.completedTime?.description ?? "")
-
-        }
-    }
-}
-

@@ -19,7 +19,7 @@
 		4163A518242466CF00D9E011 /* PeopleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4163A517242466CF00D9E011 /* PeopleCell.swift */; };
 		4163A51A242466F200D9E011 /* TagForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4163A519242466F200D9E011 /* TagForm.swift */; };
 		4163A51D24249FA400D9E011 /* TodayTimeLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4163A51C24249FA400D9E011 /* TodayTimeLine.swift */; };
-		4163A5222424A47700D9E011 /* TimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4163A5212424A47700D9E011 /* TimeLineView.swift */; };
+		4163A5222424A47700D9E011 /* TimeLineCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4163A5212424A47700D9E011 /* TimeLineCard.swift */; };
 		4165B885241F18DC006768B6 /* Tag+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4165B883241F18DC006768B6 /* Tag+CoreDataClass.swift */; };
 		4165B886241F18DC006768B6 /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4165B884241F18DC006768B6 /* Tag+CoreDataProperties.swift */; };
 		416BC5EF24025BA200A4A50F /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416BC5EE24025BA200A4A50F /* TaskView.swift */; };
@@ -61,7 +61,7 @@
 		4163A517242466CF00D9E011 /* PeopleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleCell.swift; sourceTree = "<group>"; };
 		4163A519242466F200D9E011 /* TagForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagForm.swift; sourceTree = "<group>"; };
 		4163A51C24249FA400D9E011 /* TodayTimeLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTimeLine.swift; sourceTree = "<group>"; };
-		4163A5212424A47700D9E011 /* TimeLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineView.swift; sourceTree = "<group>"; };
+		4163A5212424A47700D9E011 /* TimeLineCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeLineCard.swift; sourceTree = "<group>"; };
 		4165B883241F18DC006768B6 /* Tag+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4165B884241F18DC006768B6 /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		416BC5EE24025BA200A4A50F /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
@@ -129,22 +129,21 @@
 		4163A51B24247DA600D9E011 /* ReviewScene */ = {
 			isa = PBXGroup;
 			children = (
+				4163A51E2424A11C00D9E011 /* TimeLineComp */,
 				418339BE24062A7B00948859 /* ReviewView.swift */,
-				417BCCBD240D063D003D4AB2 /* CompletedTaskView.swift */,
 				4163A51C24249FA400D9E011 /* TodayTimeLine.swift */,
-				4163A51E2424A11C00D9E011 /* TimeLine */,
-				41A4F4812424AD7A00353564 /* SettingView.swift */,
 				41E6A6E6244826B1004E775E /* TodayNotes.swift */,
+				417BCCBD240D063D003D4AB2 /* CompletedTaskView.swift */,
 			);
 			path = ReviewScene;
 			sourceTree = "<group>";
 		};
-		4163A51E2424A11C00D9E011 /* TimeLine */ = {
+		4163A51E2424A11C00D9E011 /* TimeLineComp */ = {
 			isa = PBXGroup;
 			children = (
-				4163A5212424A47700D9E011 /* TimeLineView.swift */,
+				4163A5212424A47700D9E011 /* TimeLineCard.swift */,
 			);
-			path = TimeLine;
+			path = TimeLineComp;
 			sourceTree = "<group>";
 		};
 		416BC5F124025CFC00A4A50F /* Supporting Files */ = {
@@ -198,8 +197,8 @@
 		41DF0BD824021FCD0093D107 /* Staff */ = {
 			isa = PBXGroup;
 			children = (
-				416BC5F124025CFC00A4A50F /* Supporting Files */,
 				41DF0BF1240220060093D107 /* View */,
+				416BC5F124025CFC00A4A50F /* Supporting Files */,
 				41DF0BF024021FE30093D107 /* Model+Extension */,
 				41DF0BE424021FCE0093D107 /* Preview Content */,
 			);
@@ -232,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				41DF0BE024021FCD0093D107 /* ContentView.swift */,
+				41A4F4812424AD7A00353564 /* SettingView.swift */,
 				4163A5122423BB3900D9E011 /* TaskViewScene */,
 				41A4F4832424AF6100353564 /* OrganizeViewScene */,
 				418655452428604300B0A091 /* AddTaskScene */,
@@ -332,7 +332,7 @@
 				417938802428639300A5A412 /* DatePickerView.swift in Sources */,
 				4163A518242466CF00D9E011 /* PeopleCell.swift in Sources */,
 				418655442426664D00B0A091 /* TaskCell.swift in Sources */,
-				4163A5222424A47700D9E011 /* TimeLineView.swift in Sources */,
+				4163A5222424A47700D9E011 /* TimeLineCard.swift in Sources */,
 				418339BF24062A7B00948859 /* ReviewView.swift in Sources */,
 				41A4F4872424B03D00353564 /* InboxForm.swift in Sources */,
 				4163A516242466A800D9E011 /* ImagePickerView.swift in Sources */,
