@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "BottomBar-SwiftUI",
+        "repositoryURL": "https://gitee.com/chenzyi/bottombar-swiftui.git",
+        "state": {
+          "branch": "master",
+          "revision": "68b14cc029145e5ace625c961f1946c85a495791",
+          "version": null
+        }
+      },
+      {
+        "package": "SwiftUICharts",
+        "repositoryURL": "https://gitee.com/chenzyi/ChartView.git",
+        "state": {
+          "branch": null,
+          "revision": "c12c773af0b18be3abc30a5e39fc8370a6498502",
+          "version": "1.5.0"
+        }
+      },
+      {
+        "package": "PartialSheet",
+        "repositoryURL": "https://gitee.com/chenzyi/PartialSheet.git",
+        "state": {
+          "branch": null,
+          "revision": "3ccfb420c440845fc87c6d5d43cb96772370455f",
+          "version": "2.1.5"
+        }
+      },
+      {
+        "package": "SwiftDate",
+        "repositoryURL": "https://gitee.com/chenzyi/SwiftDate.git",
+        "state": {
+          "branch": null,
+          "revision": "700dde1b3417fd4a7fd2bec9f5bc8ab2de1b96b4",
+          "version": "6.1.0"
+        }
+      },
+      {
+        "package": "WaterfallGrid",
+        "repositoryURL": "https://gitee.com/chenzyi/WaterfallGrid.git",
+        "state": {
+          "branch": null,
+          "revision": "67bb0263a45357651608faafcd51fe39cfd3cf30",
+          "version": "0.4.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
