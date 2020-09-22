@@ -9,7 +9,7 @@
 import SwiftUI
 import CoreData
 import WaterfallGrid
-// 重新思考是否有更优雅的时间输入方式？
+// 重新思考是否有更优雅的时间输入方式？ 现在已经更新为新版的方式，更漂亮哈哈
 struct AddTaskView: View {
     @Environment(\.managedObjectContext) var contex
     @Binding var isPopAdd: Bool //binding 使得subview可以读写parent viwe中的var
@@ -34,12 +34,18 @@ struct AddTaskView: View {
                         Image(systemName: "doc.text")
                         TextField("备注", text: $notes)
                     }
-                    NavigationLink(destination: DatePickerView(selectedDate: $date)){
-                        HStack{
-                            Image(systemName: "clock")
-                            Text("选择日期")
-                        }
+                    HStack{
+                        Image(systemName: "clock")
+                        DatePicker("时间", selection: $date, in: Date()...)
+                        
                     }
+                    // 原始版本的选择日期的办法，已经被之前的选择日期的办法所取代。
+//                    NavigationLink(destination: DatePickerView(selectedDate: $date)){
+//                        HStack{
+//                            Image(systemName: "clock")
+//                            Text("选择日期")
+//                        }
+//                    }
                     HStack{
                         Image(systemName: "tag.fill")
                         WaterfallGrid(checkedTag, id: \.self){

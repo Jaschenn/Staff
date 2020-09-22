@@ -20,7 +20,8 @@ struct TaskCell: View {
     @Environment(\.managedObjectContext) var context
     var body: some View {
         ZStack{
-            LinearGradient(gradient: Gradient(colors: getCurrentTaskBackgroundColor(task: task)), startPoint: .leading, endPoint: .trailing)
+            // 这个渐变色的背景还是取消吧，实在是太难看了
+           // LinearGradient(gradient: Gradient(colors: getCurrentTaskBackgroundColor(task: task)), startPoint: .leading, endPoint: .trailing)
             HStack{
                 HStack {
                     VStack(alignment: .leading, spacing: 6) {
