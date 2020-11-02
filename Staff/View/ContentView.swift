@@ -18,8 +18,6 @@ let tabBarItems: [BottomBarItem] = [
     
 ]
 
-
-
 struct ContentView: View {
     @Environment(\.managedObjectContext) var context
     @State var isPopAdd = false //修改页面
